@@ -14,7 +14,6 @@ const UserDashboard = ({ user }) => {
     //similar to component did mount
     useEffect(() => {
         populateRecipeArr();
-        // suggestedRecipeThumbnail()
         // getEvents();
     }, [])
 
