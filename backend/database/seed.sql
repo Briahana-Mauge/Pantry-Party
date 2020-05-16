@@ -21,6 +21,7 @@ CREATE TABLE followers (
     follower_id INT REFERENCES users(id)
 );
 
+
 CREATE TABLE recipes (
     id SERIAL PRIMARY KEY, 
     user_id INT REFERENCES users(id),
