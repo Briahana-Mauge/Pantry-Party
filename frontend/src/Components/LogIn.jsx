@@ -8,9 +8,9 @@ const handleSubmit = (e) =>{
   loginUser()
 }
 
-if(isLoggedIn){
-  return <Redirect to='/home'/>
-} 
+// if(isLoggedIn){
+//   return <Redirect to='/home'/>
+// } 
     return (
       <>
         <div className="container">

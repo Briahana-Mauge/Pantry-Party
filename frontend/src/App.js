@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 import Error from "./components/Error";
 import AuthContainer from "./containers/AuthContainer";
@@ -23,7 +23,8 @@ const App = () => {
 
   const checkUserLoggedIn = async () => {
     try {
-      let response = await axios.get('/auth/isUserLoggedIn')
+      let {data} = await axios.get('/auth/isUserLoggedIn')
+      setUser(data.payload)
     } catch (error) {
       console.log('err:', error)
     }
@@ -40,6 +41,10 @@ const App = () => {
       console.log('err:', error)
     }
   }
+
+  useEffect(()=>{
+    checkUserLoggedIn()
+  }, [])
 
   return (
     <div className="App">
@@ -84,6 +89,8 @@ const App = () => {
         <Route exact path='/home'>
           <UserDashboard
             user={user}
+            isLoggedIn={isLoggedIn}
+            setLoggedIn={setLoggedIn}
           />
         </Route>
 

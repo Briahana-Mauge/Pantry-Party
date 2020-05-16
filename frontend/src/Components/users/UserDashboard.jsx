@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useLayoutEffect, useRef } from 'react';
 import axios from 'axios';
 import { Link, Route } from 'react-router-dom'
 import SuggestedRecipeCard from '../SuggestedRecipeCard'
 
 
-const UserDashboard = ({ user }) => {
-    // console.log(user)
-
+const UserDashboard = ({ user, isLoggedIn, setLoggedIn }) => {
+    console.log('im screamin', user)
     const [recipeArr, setRecipeArr] = useState([])
     const [cbrecipeArr, setCbRecipeArr] = useState([])
     const [eventsArr, setEventsArr] = useState([])
 
-    //similar to component did mount
+    // similar to component did mount
     useEffect(() => {
-        populateRecipeArr();
+            populateRecipeArr();
+        
         // getEvents();
-    }, [])
+ }, [])
 
     //gets random recipe from API
     const getRandomRecipeFromAPI = async () => {
         try {
             let { data } = await axios.get('https://www.themealdb.com/api/json/v1/1/random.php')
             let recipe = data.meals[0]
+            console.log("heree", recipe)
             return recipe
-
         } catch (error) {
             console.log('err:', error)
         }
@@ -47,30 +47,19 @@ const UserDashboard = ({ user }) => {
     }
 
 
-    const getEvents = async () => {
-        let user_id = user.id
-        // console.log(user_id)
-        try {
-            let loggedinUserEvents = await axios.get(`/events/user/${user_id}`)
-            console.log(loggedinUserEvents)
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    // const getEvents = async () => {
+    //     let user_id = user.id
+    //     // console.log(user_id)
+    //     try {
+    //         let loggedinUserEvents = await axios.get(`/events/user/${user_id}`)
+    //         console.log(loggedinUserEvents)
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
 
-    const suggestedRecipeThumbnail = recipeArr.map(el => (
-        <SuggestedRecipeCard
-            id={el.idMeal}
-            imgSrc={el.strMealThumb}
-            recipeName={el.strMeal}
-            alt='db recipe'
-        >
-            {el}
-        </SuggestedRecipeCard>
-    ))
-    console.log(suggestedRecipeThumbnail)
-    console.log(recipeArr)
-    
+
+
 
 
     return (
@@ -80,7 +69,16 @@ const UserDashboard = ({ user }) => {
             </div>
 
             <div className='dashboard-suggestions'>
-                <h1>hi</h1> {suggestedRecipeThumbnail}
+                {recipeArr.map(el => {
+
+                   return( <SuggestedRecipeCard
+                        id={el.idMeal}
+                        imgSrc={el.strMealThumb}
+                        recipeName={el.strMeal}
+                        alt='db recipe'
+                    >
+                        {el}
+                   </SuggestedRecipeCard >)})}
             </div>
 
             <div className='dashboard-cookbook'>

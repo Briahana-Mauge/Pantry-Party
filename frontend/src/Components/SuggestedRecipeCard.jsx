@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 const SuggestedRecipeCard = ({recipeName, imgSrc, id}) => {
-    console.log(recipeName, imgSrc)
+    // console.log(recipeName, imgSrc)
     return(
         
         <div className='api-recipe' id={id} > 

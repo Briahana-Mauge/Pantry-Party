@@ -48,12 +48,6 @@ const AuthContainer = ({ username, password, firstname, lastname, email, user, s
 
     }
 
-   
-
-    if (isLoggedIn) {
-        return <Redirect to='/home' />
-    }
-    
     return (
 
         <div>
