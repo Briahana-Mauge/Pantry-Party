@@ -5,7 +5,7 @@ import SuggestedRecipeCard from '../SuggestedRecipeCard'
 
 
 const UserDashboard = ({ user }) => {
-    // console.log(user)
+     console.log(user)
 
     const [recipeArr, setRecipeArr] = useState([])
     const [cbrecipeArr, setCbRecipeArr] = useState([])
