@@ -4,15 +4,27 @@ import { Link, Route } from 'react-router-dom'
 import SuggestedRecipeCard from '../SuggestedRecipeCard'
 
 
-const UserDashboard = ({ user, isLoggedIn, setLoggedIn }) => {
-    console.log('im screamin', user)
+const UserDashboard = ({ user }) => {
+     console.log(user)
+
     const [recipeArr, setRecipeArr] = useState([])
     const [cbrecipeArr, setCbRecipeArr] = useState([])
     const [eventsArr, setEventsArr] = useState([])
 
     // similar to component did mount
     useEffect(() => {
-            populateRecipeArr();
+        const populateRecipeArr = async () => {
+            let r1 = getRandomRecipeFromAPI()
+            let r2 = getRandomRecipeFromAPI()
+            let r3 = getRandomRecipeFromAPI()
+            let r4 = getRandomRecipeFromAPI()
+
+            let recipes = await Promise.all([r1, r2, r3, r4]) 
+            console.log('hello recipes',recipes) 
+            setRecipeArr(recipes)
+            // console.log('arr:', recipeArr)
+        }
+             populateRecipeArr();
         
         // getEvents();
  }, [])
@@ -30,21 +42,21 @@ const UserDashboard = ({ user, isLoggedIn, setLoggedIn }) => {
     }
 
     // creates array of 4 recipes from the API
-    const populateRecipeArr = async () => {
-        let r1 = await getRandomRecipeFromAPI()
-        recipeArr.push(r1)
+    // const populateRecipeArr = async () => {
+    //     let r1 = await getRandomRecipeFromAPI()
+    //     recipeArr.push(r1)
 
-        let r2 = await getRandomRecipeFromAPI()
-        recipeArr.push(r2)
+    //     let r2 = await getRandomRecipeFromAPI()
+    //     recipeArr.push(r2)
 
-        let r3 = await getRandomRecipeFromAPI()
-        recipeArr.push(r3)
+    //     let r3 = await getRandomRecipeFromAPI()
+    //     recipeArr.push(r3)
 
-        let r4 = await getRandomRecipeFromAPI()
-        recipeArr.push(r4)
+    //     let r4 = await getRandomRecipeFromAPI()
+    //     recipeArr.push(r4)
 
-        // console.log('arr:', recipeArr)
-    }
+    //     // console.log('arr:', recipeArr)
+    // }
 
 
     // const getEvents = async () => {
@@ -58,7 +70,18 @@ const UserDashboard = ({ user, isLoggedIn, setLoggedIn }) => {
     //     }
     // }
 
+const suggestedRecipeThumbnail = recipeArr.map(el => 
+    <SuggestedRecipeCard
+         id={el.idMeal}
+         imgSrc={el.strMealThumb}
+         recipeName={el.strMeal}
+         alt='db recipe'
+     >
+         {el}
+    </SuggestedRecipeCard >)
 
+    console.log(suggestedRecipeThumbnail)
+    console.log(recipeArr)
 
 
 
@@ -69,16 +92,7 @@ const UserDashboard = ({ user, isLoggedIn, setLoggedIn }) => {
             </div>
 
             <div className='dashboard-suggestions'>
-                {recipeArr.map(el => {
-
-                   return( <SuggestedRecipeCard
-                        id={el.idMeal}
-                        imgSrc={el.strMealThumb}
-                        recipeName={el.strMeal}
-                        alt='db recipe'
-                    >
-                        {el}
-                   </SuggestedRecipeCard >)})}
+                {suggestedRecipeThumbnail}
             </div>
 
             <div className='dashboard-cookbook'>

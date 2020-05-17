@@ -51,9 +51,8 @@ const AuthContainer = ({ username, password, firstname, lastname, email, user, s
     return (
 
         <div>
-            <h2>AuthContainer</h2>
             <Switch>
-                <Route exact path='/login'>
+                <Route exact path='/'>
                     <LogIn
                         username={username}
                         password={password}

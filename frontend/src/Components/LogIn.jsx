@@ -1,74 +1,68 @@
 import React from "react";
-import { Link, Redirect} from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
-const Landing =({username, password, setUsername, setPassword, isLoggedIn, setLoggedIn, loginUser}) => {
+const Landing = ({
+  username,
+  password,
+  setUsername,
+  setPassword,
+  isLoggedIn,
+  setLoggedIn,
+  loginUser,
+}) => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    loginUser();
+  };
 
-const handleSubmit = (e) =>{
-  e.preventDefault()
-  loginUser()
-}
-
-// if(isLoggedIn){
-//   return <Redirect to='/home'/>
-// } 
-    return (
-      <>
-        <div className="container">
-          <div>
-            <form onSubmit={handleSubmit}>
-              <h2>Log-In Page</h2>
-              <div>
-                <div>
-                  <input
-                    className="validate"
-                    type="username"
-                    id="username"
-                    name="username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                  />
-                  <label htmlFor="username">Username</label>
-                </div>
+  if (isLoggedIn) {
+    return <Redirect to="/home" />;
+  }
+  return (
+    <>
+      <div>
+        <div className="row left">
+          <form onSubmit={handleSubmit}>
+            <div className="row">
+              <div className="input-feild col s5">
+                <input
+                  className="validate"
+                  type="text"
+                  id="username"
+                  name="username"
+                  placeholder="username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
               </div>
-              <div>
-                <div>
-                  <input
-                    className="validate"
-                    type="password"
-                    id="password"
-                    name="password"
-                    value={password}
-                    onChange={(e)=>setPassword(e.target.value)}
-                    required
-                  />
-                  <label htmlFor="password">Password</label>
-                </div>
+              <div className="input-feild col s5">
+                <input
+                  className="validate"
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
               </div>
+            
               <div>
-                <div>
-                  <Link to="/signup">
-                    <button
-                      type="button"
-                      name="action"
-                    >
-                      New?
-                      <br />
-                      Sign Up here.
-                    </button>
-                  </Link>
-                </div>
-                <div>
-                  <button type="submit" name="action">
-                    Log-In
-                  </button>
-                </div>
+                <button style={{marginLeft:'25%' }} type="submit" name="action">
+                  Log-In
+                </button>
+                <Link to="/signup">
+                  <button>Sign-Up</button>
+                </Link>
               </div>
-            </form>
-          </div>
+              </div>
+          </form>
         </div>
-      </>
-    );
-}
+      </div>
+    </>
+  );
+};
 
 export default Landing;
